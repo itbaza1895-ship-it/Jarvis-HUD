@@ -31,7 +31,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor': ['react', 'react-dom'],
-          'three': ['three'],
           'mediapipe': ['@mediapipe/tasks-vision'],
         },
       },
@@ -42,6 +41,6 @@ export default defineConfig({
   
   // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'three', '@mediapipe/tasks-vision'],
+    include: ['react', 'react-dom', '@mediapipe/tasks-vision'],
   },
 });
