@@ -4,16 +4,50 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // For GitHub Pages deployment, uncomment and set your repo name:
+  // base: '/jarvis-hud/',
+  
   server: {
     host: "::",
     port: 8080,
   },
+  
   plugins: [
     react(),
   ],
+  
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  
+  build: {
+    // Optimize build for production
+    target: 'esnext',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false, // Keep console for debugging
+        drop_debugger: true,
+      },
+    },
+    // Chunk splitting for better caching
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom'],
+          'three': ['three'],
+          'mediapipe': ['@mediapipe/tasks-vision'],
+        },
+      },
+    },
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000,
+  },
+  
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'three', '@mediapipe/tasks-vision'],
   },
 });

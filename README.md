@@ -1,61 +1,279 @@
-# Welcome to your OnSpace project
+# JARVIS HUD - Система AR с Отслеживанием Лица и Жестов
 
-## How can I edit this code?
+Интерактивная система дополненной реальности в стиле J.A.R.V.I.S. из Iron Man с распознаванием лиц, анализом эмоций, отслеживанием жестов и управлением 3D объектами.
 
-There are several ways of editing your application.
+![JARVIS HUD Preview](https://via.placeholder.com/1200x630.png?text=JARVIS+HUD+System)
 
-**Use OnSpace**
+## ✨ Возможности
 
-Simply visit the [OnSpace Project]() and start prompting.
+- 🎭 **Распознавание лиц** - Real-time отслеживание позиции лица с помощью MediaPipe
+- 😊 **Анализ эмоций** - Определение настроения по мимике лица
+- 👋 **Отслеживание жестов** - Управление 3D объектами движениями руки
+- 🌍 **Интерактивный глобус** - 3D визуализация с управлением жестами (масштабирование щипком)
+- 📹 **Мультикамерность** - Поддержка веб-камер и IP/WiFi камер
+- 🎨 **Sci-Fi интерфейс** - Футуристичный HUD в стиле JARVIS с анимациями
+- ⚡ **Высокая производительность** - Оптимизация с GPU ускорением
 
-Changes made via OnSpace will be committed automatically to this repo.
+## 🚀 Быстрый старт
 
-**Use your preferred IDE**
+### Требования
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in OnSpace.
+- Node.js 18+ или Bun
+- Современный браузер с поддержкой WebRTC (Chrome, Firefox, Edge)
+- Веб-камера или IP камера
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Установка
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1. **Клонируйте репозиторий**
+```bash
+git clone https://github.com/ваш-username/jarvis-hud.git
+cd jarvis-hud
 ```
 
-**Edit a file directly in GitHub**
+2. **Установите зависимости**
+```bash
+# С использованием npm
+npm install
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+# Или с Bun (быстрее)
+bun install
+```
 
-**Use GitHub Codespaces**
+3. **Запустите dev сервер**
+```bash
+# npm
+npm run dev
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Bun
+bun dev
+```
 
-## What technologies are used for this project?
+4. **Откройте в браузере**
+```
+http://localhost:8080
+```
 
-This project is built with:
+5. **Разрешите доступ к камере** когда браузер запросит разрешение
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📦 Сборка для продакшена
 
-## How can I deploy this project?
+```bash
+# Сборка оптимизированной версии
+npm run build
 
-Simply open [OnSpace]() and click on Share -> Publish.
+# Превью production сборки
+npm run preview
+```
+
+Готовые файлы будут в папке `dist/`
+
+## 🎮 Как использовать
+
+### Управление камерами
+
+1. **Веб-камера**: Автоматически подключается при запуске
+2. **Переключение камер**: Используйте селектор камер в правом верхнем углу
+3. **IP/WiFi камера**: 
+   - Нажмите "Добавить IP камеру"
+   - Введите URL потока (например: `http://192.168.1.100:8080/video`)
+   - Поддерживаемые форматы: MJPEG, HLS
+
+### Управление жестами
+
+- **Открытая ладонь** - Вращение глобуса
+- **Щипок (большой + указательный палец)** - Масштабирование глобуса
+- **Движение руки** - Изменение скорости вращения
+
+### Биометрические данные
+
+HUD отображает в реальном времени:
+- Координаты лица
+- Уверенность отслеживания
+- Эмоциональное состояние
+- Статус обнаружения жестов
+- FPS системы
+
+## 🛠️ Технологический стек
+
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS + Custom CSS
+- **3D Graphics**: Three.js
+- **Computer Vision**: MediaPipe (Face Detection, Face Landmarks, Hand Tracking)
+- **AI/ML**: TensorFlow Lite (через MediaPipe)
+
+## 📁 Структура проекта
+
+```
+jarvis-hud/
+├── src/
+│   ├── components/          # React компоненты
+│   │   ├── JarvisHUD.tsx   # Главный компонент системы
+│   │   ├── WebcamFeed.tsx  # Управление камерами
+│   │   ├── CameraSelector.tsx # Селектор камер
+│   │   ├── HeadsUpDisplay.tsx # HUD интерфейс
+│   │   ├── Globe.tsx       # 3D глобус (Three.js)
+│   │   ├── FaceTrackingOverlay.tsx
+│   │   └── HandTrackingOverlay.tsx
+│   ├── lib/                # Утилиты и библиотеки
+│   │   ├── mediapipe.ts   # MediaPipe инициализация
+│   │   └── emotionAnalyzer.ts # Анализ эмоций
+│   ├── types/             # TypeScript типы
+│   │   └── tracking.ts
+│   ├── index.css          # Глобальные стили + дизайн система
+│   └── main.tsx           # Точка входа
+├── public/                # Статические файлы
+├── vite.config.ts         # Конфигурация Vite
+├── tailwind.config.ts     # Конфигурация Tailwind
+└── tsconfig.json          # TypeScript конфигурация
+```
+
+## ⚙️ Конфигурация
+
+### Переменные окружения
+
+Создайте файл `.env` в корне проекта (опционально):
+
+```env
+# Порт dev сервера (по умолчанию 8080)
+VITE_PORT=8080
+
+# Хост (по умолчанию ::)
+VITE_HOST=::
+```
+
+### Настройка MediaPipe
+
+В `src/lib/mediapipe.ts` можно настроить:
+- Количество отслеживаемых лиц (`numFaces`)
+- Количество отслеживаемых рук (`numHands`)
+- Делегат (GPU/CPU)
+- Пути к моделям
+
+### Настройка камеры
+
+В `src/components/WebcamFeed.tsx`:
+```typescript
+const constraints = {
+  video: {
+    width: { ideal: 1920 },
+    height: { ideal: 1080 },
+    facingMode: 'user'
+  }
+};
+```
+
+## 🔧 Решение проблем
+
+### Камера не работает
+
+1. Проверьте разрешения браузера на доступ к камере
+2. Убедитесь, что камера не используется другим приложением
+3. Попробуйте другой браузер (рекомендуется Chrome)
+4. Для HTTPS требуется безопасное соединение
+
+### Низкий FPS
+
+1. Закройте другие приложения использующие GPU
+2. Уменьшите разрешение камеры в `WebcamFeed.tsx`
+3. Переключитесь на CPU делегат в `mediapipe.ts`:
+```typescript
+delegate: 'CPU'  // вместо 'GPU'
+```
+
+### IP камера не подключается
+
+1. Проверьте доступность URL камеры в браузере
+2. Убедитесь что камера поддерживает CORS
+3. Используйте MJPEG или HLS форматы
+4. Проверьте что камера в той же сети
+
+### Информационные сообщения TensorFlow
+
+Сообщения вида `"INFO: Created TensorFlow Lite XNNPACK delegate"` - это **не ошибки**, а информационные логи. Они автоматически фильтруются в коде.
+
+## 🌐 Деплой
+
+### Vercel
+
+```bash
+npm i -g vercel
+vercel
+```
+
+### Netlify
+
+```bash
+npm run build
+netlify deploy --prod --dir=dist
+```
+
+### GitHub Pages
+
+1. Обновите `vite.config.ts`:
+```typescript
+export default defineConfig({
+  base: '/jarvis-hud/', // имя репозитория
+  // ...
+});
+```
+
+2. Создайте workflow `.github/workflows/deploy.yml`:
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run build
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+```
+
+### OnSpace (текущий хостинг)
+
+Проект уже оптимизирован для OnSpace:
+- Нажмите "Publish" в OnSpace
+- Получите `.onspace.app` домен
+- Или добавьте свой домен в настройках
+
+## 📄 Лицензия
+
+MIT License - свободно используйте для личных и коммерческих проектов.
+
+## 🤝 Участие в разработке
+
+Приветствуются Pull Requests! 
+
+1. Fork проекта
+2. Создайте feature ветку (`git checkout -b feature/amazing-feature`)
+3. Commit изменений (`git commit -m 'Add amazing feature'`)
+4. Push в ветку (`git push origin feature/amazing-feature`)
+5. Откройте Pull Request
+
+## 📞 Поддержка
+
+- 🐛 Нашли баг? [Создайте Issue](https://github.com/ваш-username/jarvis-hud/issues)
+- 💡 Есть идея? [Обсудим в Discussions](https://github.com/ваш-username/jarvis-hud/discussions)
+- 📧 Email: your-email@example.com
+
+## 🙏 Благодарности
+
+- [MediaPipe](https://google.github.io/mediapipe/) - за мощные инструменты компьютерного зрения
+- [Three.js](https://threejs.org/) - за 3D графику
+- [Tailwind CSS](https://tailwindcss.com/) - за стили
+- Iron Man & Marvel - за вдохновение дизайна
+
+---
+
+⭐ Если проект понравился, поставьте звезду на GitHub!
