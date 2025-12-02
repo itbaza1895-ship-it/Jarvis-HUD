@@ -25,13 +25,7 @@ export default defineConfig({
   build: {
     // Optimize build for production
     target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: false, // Keep console for debugging
-        drop_debugger: true,
-      },
-    },
+    minify: 'esbuild', // Use esbuild (faster than terser, no extra dependencies)
     // Chunk splitting for better caching
     rollupOptions: {
       output: {
